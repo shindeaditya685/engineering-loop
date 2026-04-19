@@ -125,7 +125,7 @@ export default function AdminCutoffsPage() {
 
       const allRes = await fetch('/api/admin/cutoffs?limit=10000');
       const allJson = await allRes.json();
-      const all = allJson.data || [];
+      const all = (allJson.data as CutoffEntry[]) || [];
       setColleges([...new Set(all.map((d: CutoffEntry) => d.college))].sort());
       setPrograms([...new Set(all.map((d: CutoffEntry) => d.program))].sort());
       setCategories([...new Set(all.map((d: CutoffEntry) => d.category))].sort());
