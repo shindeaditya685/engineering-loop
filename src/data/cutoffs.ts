@@ -9,7 +9,7 @@ export interface CutoffData {
 }
 
 // 1. Locate this interface
-interface CutoffFilters {
+export interface CutoffFilters {
   programs: string[];
   categories: string[];
   types: string[];
