@@ -10,6 +10,7 @@ export interface CutoffData {
 
 // 1. Locate this interface
 export interface CutoffFilters {
+  colleges: string[];
   programs: string[];
   categories: string[];
   types: string[];
