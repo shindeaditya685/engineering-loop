@@ -4,14 +4,16 @@ export interface CutoffData {
   type: string;
   program: string;
   category: string;
+  year: number;
   cutoff: number;
 }
 
-export interface CutoffFilters {
-  colleges: string[];
+// 1. Locate this interface
+interface CutoffFilters {
   programs: string[];
   categories: string[];
   types: string[];
+  years: string[]; 
 }
 
 export interface CutoffStats {
