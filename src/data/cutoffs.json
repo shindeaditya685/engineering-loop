@@ -1,0 +1,2570 @@
+[
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Medical Devices",
+    "category": "GEN",
+    "cutoff": 422,
+    "year": 2025
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Medical Devices",
+    "category": "OBC-NCL",
+    "cutoff": 318,
+    "year": 2025
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Medical Devices",
+    "category": "EWS",
+    "cutoff": 372,
+    "year": 2025
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Medical Devices",
+    "category": "SC",
+    "cutoff": 214
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Medical Devices",
+    "category": "ST",
+    "cutoff": 272
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Medical Devices",
+    "category": "PWD",
+    "cutoff": 237
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "GEN",
+    "cutoff": 430
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 355
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "EWS",
+    "cutoff": 366
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "SC",
+    "cutoff": 283
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "ST",
+    "cutoff": 325
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "PWD",
+    "cutoff": 291
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Tunnel Engineering",
+    "category": "GEN",
+    "cutoff": 322
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Tunnel Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 325
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Tunnel Engineering",
+    "category": "EWS",
+    "cutoff": 370
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Tunnel Engineering",
+    "category": "SC",
+    "cutoff": 287
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Tunnel Engineering",
+    "category": "ST",
+    "cutoff": 258
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Tunnel Engineering",
+    "category": "PWD",
+    "cutoff": 291
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 643
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 589
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 639
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 443
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "ST",
+    "cutoff": 397
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "PWD",
+    "cutoff": 476
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Communication & Signal Processing",
+    "category": "GEN",
+    "cutoff": 459
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Communication & Signal Processing",
+    "category": "OBC-NCL",
+    "cutoff": 409
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Communication & Signal Processing",
+    "category": "EWS",
+    "cutoff": 409
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Communication & Signal Processing",
+    "category": "SC",
+    "cutoff": 327
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Communication & Signal Processing",
+    "category": "ST",
+    "cutoff": 280
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Communication & Signal Processing",
+    "category": "PWD",
+    "cutoff": 272
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "VLSI Design",
+    "category": "GEN",
+    "cutoff": 487
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "VLSI Design",
+    "category": "OBC-NCL",
+    "cutoff": 436
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "VLSI Design",
+    "category": "EWS",
+    "cutoff": 467
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "VLSI Design",
+    "category": "SC",
+    "cutoff": 358
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "VLSI Design",
+    "category": "ST",
+    "cutoff": 276
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "VLSI Design",
+    "category": "PWD",
+    "cutoff": 307
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Thermal & Energy Systems Engineering",
+    "category": "GEN",
+    "cutoff": 352
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Thermal & Energy Systems Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 318
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Thermal & Energy Systems Engineering",
+    "category": "EWS",
+    "cutoff": 369
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Thermal & Energy Systems Engineering",
+    "category": "SC",
+    "cutoff": 279
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Thermal & Energy Systems Engineering",
+    "category": "ST",
+    "cutoff": 248
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Thermal & Energy Systems Engineering",
+    "category": "PWD",
+    "cutoff": 257
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Mechanical System Design",
+    "category": "GEN",
+    "cutoff": 352
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Mechanical System Design",
+    "category": "OBC-NCL",
+    "cutoff": 332
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Mechanical System Design",
+    "category": "EWS",
+    "cutoff": 369
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Mechanical System Design",
+    "category": "SC",
+    "cutoff": 235
+  },
+  {
+    "college": "IIT Jammu",
+    "type": "IIT",
+    "program": "Mechanical System Design",
+    "category": "ST",
+    "cutoff": 248
+  },
+
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 881
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 770
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 802
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 585
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "ST",
+    "cutoff": 564
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "PWD",
+    "cutoff": 443
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Data Science & AI",
+    "category": "GEN",
+    "cutoff": 866
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Data Science & AI",
+    "category": "EWS",
+    "cutoff": 768
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Data Science & AI",
+    "category": "OBC-NCL",
+    "cutoff": 768
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Data Science & AI",
+    "category": "SC",
+    "cutoff": 690
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Data Science & AI",
+    "category": "ST",
+    "cutoff": 553
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power)",
+    "category": "GEN",
+    "cutoff": 944
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power)",
+    "category": "EWS",
+    "cutoff": 854
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power)",
+    "category": "OBC-NCL",
+    "cutoff": 862
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power)",
+    "category": "SC",
+    "cutoff": 686
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power)",
+    "category": "ST",
+    "cutoff": 449
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Communication)",
+    "category": "GEN",
+    "cutoff": 690
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Communication)",
+    "category": "EWS",
+    "cutoff": 592
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Communication)",
+    "category": "OBC-NCL",
+    "cutoff": 647
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Communication)",
+    "category": "SC",
+    "cutoff": 561
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Electrical Engineering (Communication)",
+    "category": "ST",
+    "cutoff": 346
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Design)",
+    "category": "GEN",
+    "cutoff": 808
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Design)",
+    "category": "EWS",
+    "cutoff": 732
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Design)",
+    "category": "OBC-NCL",
+    "cutoff": 712
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Design)",
+    "category": "SC",
+    "cutoff": 639
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Design)",
+    "category": "ST",
+    "cutoff": 511
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Thermal)",
+    "category": "GEN",
+    "cutoff": 741
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Thermal)",
+    "category": "EWS",
+    "cutoff": 525
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Thermal)",
+    "category": "OBC-NCL",
+    "cutoff": 608
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Thermal)",
+    "category": "SC",
+    "cutoff": 428
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Thermal)",
+    "category": "ST",
+    "cutoff": 390
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "GEN",
+    "cutoff": 775
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "EWS",
+    "cutoff": 681
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "OBC-NCL",
+    "cutoff": 708
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "SC",
+    "cutoff": 577
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "ST",
+    "cutoff": 640
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "GEN",
+    "cutoff": 618
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "EWS",
+    "cutoff": 535
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 511
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "SC",
+    "cutoff": 418
+  },
+  {
+    "college": "IIT Madras",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "ST",
+    "cutoff": 369
+  },
+
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 781
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 757
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 711
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 598
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "ST",
+    "cutoff": 473
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "GEN",
+    "cutoff": 764
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "EWS",
+    "cutoff": 747
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "OBC-NCL",
+    "cutoff": 708
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "SC",
+    "cutoff": 589
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "ST",
+    "cutoff": 436
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electronics Engineering (EC2)",
+    "category": "GEN",
+    "cutoff": 745
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electronics Engineering (EC2)",
+    "category": "EWS",
+    "cutoff": 698
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electronics Engineering (EC2)",
+    "category": "OBC-NCL",
+    "cutoff": 690
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electronics Engineering (EC2)",
+    "category": "SC",
+    "cutoff": 526
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electronics Engineering (EC2)",
+    "category": "ST",
+    "cutoff": 424
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electrical Engineering (EE4)",
+    "category": "GEN",
+    "cutoff": 569
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electrical Engineering (EE4)",
+    "category": "EWS",
+    "cutoff": 523
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electrical Engineering (EE4)",
+    "category": "OBC-NCL",
+    "cutoff": 531
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electrical Engineering (EE4)",
+    "category": "SC",
+    "cutoff": 342
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Electrical Engineering (EE4)",
+    "category": "ST",
+    "cutoff": 378
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Mechanical Engineering (ME1)",
+    "category": "GEN",
+    "cutoff": 539
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Mechanical Engineering (ME1)",
+    "category": "EWS",
+    "cutoff": 404
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Mechanical Engineering (ME1)",
+    "category": "OBC-NCL",
+    "cutoff": 525
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Mechanical Engineering (ME1)",
+    "category": "SC",
+    "cutoff": 366
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Mechanical Engineering (ME1)",
+    "category": "ST",
+    "cutoff": 266
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Civil Engineering (CE1)",
+    "category": "GEN",
+    "cutoff": 487
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Civil Engineering (CE1)",
+    "category": "EWS",
+    "cutoff": 378
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Civil Engineering (CE1)",
+    "category": "OBC-NCL",
+    "cutoff": 438
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Civil Engineering (CE1)",
+    "category": "SC",
+    "cutoff": 359
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Civil Engineering (CE1)",
+    "category": "ST",
+    "cutoff": 340
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "GEN",
+    "cutoff": 452
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "EWS",
+    "cutoff": 320
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 350
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "SC",
+    "cutoff": 247
+  },
+  {
+    "college": "IIT Kharagpur",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "ST",
+    "cutoff": 237
+  },
+
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 772
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 714
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 752
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 589
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "ST",
+    "cutoff": 456
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Communication Engineering",
+    "category": "GEN",
+    "cutoff": 596
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Communication Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 573
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Communication Engineering",
+    "category": "ST",
+    "cutoff": 335
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Power Engineering",
+    "category": "GEN",
+    "cutoff": 559
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Power Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 535
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Power Engineering",
+    "category": "EWS",
+    "cutoff": 527
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Power Engineering",
+    "category": "SC",
+    "cutoff": 508
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Power Engineering",
+    "category": "ST",
+    "cutoff": 407
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Microelectronics & Photonics",
+    "category": "GEN",
+    "cutoff": 725
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Microelectronics & Photonics",
+    "category": "OBC-NCL",
+    "cutoff": 588
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - Microelectronics & Photonics",
+    "category": "ST",
+    "cutoff": 366
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - VLSI and Nanoelectronics",
+    "category": "GEN",
+    "cutoff": 717
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - VLSI and Nanoelectronics",
+    "category": "OBC-NCL",
+    "cutoff": 655
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - VLSI and Nanoelectronics",
+    "category": "EWS",
+    "cutoff": 635
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - VLSI and Nanoelectronics",
+    "category": "SC",
+    "cutoff": 475
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "EEE - VLSI and Nanoelectronics",
+    "category": "ST",
+    "cutoff": 432
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "ME - Machine Design",
+    "category": "GEN",
+    "cutoff": 577
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "ME - Machine Design",
+    "category": "OBC-NCL",
+    "cutoff": 525
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "ME - Machine Design",
+    "category": "EWS",
+    "cutoff": 542
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "ME - Machine Design",
+    "category": "SC",
+    "cutoff": 366
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "ME - Machine Design",
+    "category": "ST",
+    "cutoff": 411
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "CE - Structural Engineering",
+    "category": "GEN",
+    "cutoff": 562
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "CE - Structural Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 513
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "CE - Structural Engineering",
+    "category": "EWS",
+    "cutoff": 503
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "CE - Structural Engineering",
+    "category": "SC",
+    "cutoff": 427
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "CE - Structural Engineering",
+    "category": "ST",
+    "cutoff": 374
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Data Science",
+    "category": "GEN",
+    "cutoff": 806
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Data Science",
+    "category": "OBC-NCL",
+    "cutoff": 718
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Data Science",
+    "category": "EWS",
+    "cutoff": 744
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Data Science",
+    "category": "SC",
+    "cutoff": 559
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Data Science",
+    "category": "ST",
+    "cutoff": 453
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Robotics and Artificial Intelligence",
+    "category": "GEN",
+    "cutoff": 747
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Robotics and Artificial Intelligence",
+    "category": "OBC-NCL",
+    "cutoff": 694
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Robotics and Artificial Intelligence",
+    "category": "EWS",
+    "cutoff": 718
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Robotics and Artificial Intelligence",
+    "category": "SC",
+    "cutoff": 531
+  },
+  {
+    "college": "IIT Jodhpur",
+    "type": "IIT",
+    "program": "Robotics and Artificial Intelligence",
+    "category": "ST",
+    "cutoff": 390
+  },
+
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 876
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 813
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 724
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "ST",
+    "cutoff": 622
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "GEN",
+    "cutoff": 905
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "OBC-NCL",
+    "cutoff": 897
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "SC",
+    "cutoff": 842
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "ST",
+    "cutoff": 629
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Communications Signal Processing",
+    "category": "GEN",
+    "cutoff": 788
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Communications Signal Processing",
+    "category": "OBC-NCL",
+    "cutoff": 729
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Communications Signal Processing",
+    "category": "SC",
+    "cutoff": 557
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Communications Signal Processing",
+    "category": "ST",
+    "cutoff": 534
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Microelectronics & VLSI",
+    "category": "GEN",
+    "cutoff": 850
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Microelectronics & VLSI",
+    "category": "OBC-NCL",
+    "cutoff": 764
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Microelectronics & VLSI",
+    "category": "SC",
+    "cutoff": 708
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Microelectronics & VLSI",
+    "category": "ST",
+    "cutoff": 653
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Power Electronics and Power Systems",
+    "category": "GEN",
+    "cutoff": 799
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Power Electronics and Power Systems",
+    "category": "OBC-NCL",
+    "cutoff": 732
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Power Electronics and Power Systems",
+    "category": "SC",
+    "cutoff": 708
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Power Electronics and Power Systems",
+    "category": "ST",
+    "cutoff": 567
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Systems and Control",
+    "category": "GEN",
+    "cutoff": 894
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Systems and Control",
+    "category": "OBC-NCL",
+    "cutoff": 862
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Systems and Control",
+    "category": "SC",
+    "cutoff": 749
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "GEN",
+    "cutoff": 708
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 696
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Structural Engineering",
+    "category": "SC",
+    "cutoff": 577
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Thermo-fluid Engineering",
+    "category": "GEN",
+    "cutoff": 729
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Thermo-fluid Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 663
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Thermo-fluid Engineering",
+    "category": "SC",
+    "cutoff": 539
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Thermo-fluid Engineering",
+    "category": "ST",
+    "cutoff": 390
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "GEN",
+    "cutoff": 535
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 506
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "SC",
+    "cutoff": 389
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "ST",
+    "cutoff": 403
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Mechanics & Design",
+    "category": "GEN",
+    "cutoff": 805
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Mechanics & Design",
+    "category": "OBC-NCL",
+    "cutoff": 770
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Mechanics & Design",
+    "category": "SC",
+    "cutoff": 542
+  },
+  {
+    "college": "IIT Hyderabad",
+    "type": "IIT",
+    "program": "Mechanics & Design",
+    "category": "ST",
+    "cutoff": 411
+  },
+
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 743
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 704
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 564
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 727
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "GEN",
+    "cutoff": 437
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 448
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "SC",
+    "cutoff": 362
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "EWS",
+    "cutoff": 401
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "GEN",
+    "cutoff": 424
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 373
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "SC",
+    "cutoff": 276
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "EWS",
+    "cutoff": 397
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "GEN",
+    "cutoff": 227
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 298
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Marine Science and Technology",
+    "category": "GEN",
+    "cutoff": 400
+  },
+  {
+    "college": "IIT Guwahati",
+    "type": "IIT",
+    "program": "Marine Science and Technology",
+    "category": "OBC-NCL",
+    "cutoff": 376
+  },
+
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 618
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 622
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 546
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 602
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "GEN",
+    "cutoff": 437
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 441
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "SC",
+    "cutoff": 362
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "EWS",
+    "cutoff": 401
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "GEN",
+    "cutoff": 424
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 373
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "SC",
+    "cutoff": 276
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "GEN",
+    "cutoff": 227
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 298
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Marine Science and Technology",
+    "category": "GEN",
+    "cutoff": 400
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Marine Science and Technology",
+    "category": "OBC-NCL",
+    "cutoff": 376
+  },
+  {
+    "college": "IIT Goa",
+    "type": "IIT",
+    "program": "Marine Science and Technology",
+    "category": "SC",
+    "cutoff": 279
+  },
+
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "GEN",
+    "cutoff": 721
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "EWS",
+    "cutoff": 693
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "OBC-NCL",
+    "cutoff": 647
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "SC",
+    "cutoff": 522
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Artificial Intelligence",
+    "category": "ST",
+    "cutoff": 393
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 747
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 752
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 693
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 531
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "ST",
+    "cutoff": 456
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "GEN",
+    "cutoff": 526
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "EWS",
+    "cutoff": 492
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 480
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "SC",
+    "cutoff": 378
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Electrical Engineering",
+    "category": "ST",
+    "cutoff": 268
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "GEN",
+    "cutoff": 477
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "EWS",
+    "cutoff": 445
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 345
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "SC",
+    "cutoff": 222
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Mechanical Engineering",
+    "category": "ST",
+    "cutoff": 257
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "GEN",
+    "cutoff": 325
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "EWS",
+    "cutoff": 325
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 320
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "SC",
+    "cutoff": 222
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "ST",
+    "cutoff": 227
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Civil Engineering",
+    "category": "GEN",
+    "cutoff": 351
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Civil Engineering",
+    "category": "EWS",
+    "cutoff": 363
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Civil Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 328
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Civil Engineering",
+    "category": "SC",
+    "cutoff": 253
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Civil Engineering",
+    "category": "ST",
+    "cutoff": 247
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Integrated Circuit Design",
+    "category": "GEN",
+    "cutoff": 598
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Integrated Circuit Design",
+    "category": "EWS",
+    "cutoff": 538
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Integrated Circuit Design",
+    "category": "OBC-NCL",
+    "cutoff": 569
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Integrated Circuit Design",
+    "category": "SC",
+    "cutoff": 410
+  },
+  {
+    "college": "IIT Gandhinagar",
+    "type": "IIT",
+    "program": "Integrated Circuit Design",
+    "category": "ST",
+    "cutoff": 310
+  },
+
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 580
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 577
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 404
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 380
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "ST",
+    "cutoff": 380
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "GEN",
+    "cutoff": 610
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "OBC-NCL",
+    "cutoff": 548
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "EWS",
+    "cutoff": 557
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "SC",
+    "cutoff": 393
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "ST",
+    "cutoff": 315
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Microelectronics and VLSI",
+    "category": "GEN",
+    "cutoff": 444
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Microelectronics and VLSI",
+    "category": "OBC-NCL",
+    "cutoff": 436
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Microelectronics and VLSI",
+    "category": "EWS",
+    "cutoff": 424
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Microelectronics and VLSI",
+    "category": "SC",
+    "cutoff": 334
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Electronics & Communication Engineering",
+    "category": "GEN",
+    "cutoff": 436
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Electronics & Communication Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 393
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Electronics & Communication Engineering",
+    "category": "EWS",
+    "cutoff": 352
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Electronics & Communication Engineering",
+    "category": "SC",
+    "cutoff": 303
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Electronics & Communication Engineering",
+    "category": "ST",
+    "cutoff": 231
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Power Systems and Power Electronics",
+    "category": "GEN",
+    "cutoff": 393
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Power Systems and Power Electronics",
+    "category": "OBC-NCL",
+    "cutoff": 374
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Power Systems and Power Electronics",
+    "category": "SC",
+    "cutoff": 291
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Power Systems and Power Electronics",
+    "category": "ST",
+    "cutoff": 263
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Thermal and Fluids Engineering",
+    "category": "GEN",
+    "cutoff": 355
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Thermal and Fluids Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 331
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Thermal and Fluids Engineering",
+    "category": "EWS",
+    "cutoff": 352
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Thermal and Fluids Engineering",
+    "category": "SC",
+    "cutoff": 213
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Thermal and Fluids Engineering",
+    "category": "ST",
+    "cutoff": 222
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Design and Manufacturing",
+    "category": "GEN",
+    "cutoff": 389
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Design and Manufacturing",
+    "category": "OBC-NCL",
+    "cutoff": 345
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Design and Manufacturing",
+    "category": "EWS",
+    "cutoff": 340
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Design and Manufacturing",
+    "category": "SC",
+    "cutoff": 255
+  },
+  {
+    "college": "IIT Dharwad",
+    "type": "IIT",
+    "program": "Design and Manufacturing",
+    "category": "ST",
+    "cutoff": 272
+  },
+
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Computer Science (AI)",
+    "category": "GEN",
+    "cutoff": 772
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Computer Science (AI)",
+    "category": "OBC-NCL",
+    "cutoff": 721
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Computer Science (AI)",
+    "category": "SC",
+    "cutoff": 569
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Computer Science (IoT)",
+    "category": "GEN",
+    "cutoff": 757
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Computer Science (IoT)",
+    "category": "OBC-NCL",
+    "cutoff": 706
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Computer Science (IoT)",
+    "category": "SC",
+    "cutoff": 564
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power Systems)",
+    "category": "GEN",
+    "cutoff": 539
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power Systems)",
+    "category": "OBC-NCL",
+    "cutoff": 492
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power Systems)",
+    "category": "SC",
+    "cutoff": 413
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power Systems)",
+    "category": "ST",
+    "cutoff": 328
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power Electronics)",
+    "category": "GEN",
+    "cutoff": 622
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power Electronics)",
+    "category": "OBC-NCL",
+    "cutoff": 531
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power Electronics)",
+    "category": "SC",
+    "cutoff": 441
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electrical Engineering (Power Electronics)",
+    "category": "ST",
+    "cutoff": 366
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electronics (Microelectronics)",
+    "category": "GEN",
+    "cutoff": 655
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electronics (Microelectronics)",
+    "category": "OBC-NCL",
+    "cutoff": 616
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electronics (Microelectronics)",
+    "category": "EWS",
+    "cutoff": 620
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electronics (Microelectronics)",
+    "category": "SC",
+    "cutoff": 495
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Electronics (Microelectronics)",
+    "category": "ST",
+    "cutoff": 346
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "GEN",
+    "cutoff": 579
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "OBC-NCL",
+    "cutoff": 577
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "SC",
+    "cutoff": 434
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Civil Engineering (Structural)",
+    "category": "ST",
+    "cutoff": 344
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Machine Design)",
+    "category": "GEN",
+    "cutoff": 467
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Machine Design)",
+    "category": "OBC-NCL",
+    "cutoff": 521
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Machine Design)",
+    "category": "SC",
+    "cutoff": 394
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Mechanical Engineering (Machine Design)",
+    "category": "ST",
+    "cutoff": 269
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "GEN",
+    "cutoff": 389
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 403
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "SC",
+    "cutoff": 271
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Chemical Engineering",
+    "category": "ST",
+    "cutoff": 232
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Mining Engineering",
+    "category": "GEN",
+    "cutoff": 515
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Mining Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 476
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Mining Engineering",
+    "category": "SC",
+    "cutoff": 389
+  },
+  {
+    "college": "IIT (BHU) Varanasi",
+    "type": "IIT",
+    "program": "Mining Engineering",
+    "category": "EWS",
+    "cutoff": 399
+  },
+
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "GEN",
+    "cutoff": 614
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 577
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "EWS",
+    "cutoff": 580
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "SC",
+    "cutoff": 404
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Computer Science & Engineering",
+    "category": "ST",
+    "cutoff": 380
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "GEN",
+    "cutoff": 610
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "OBC-NCL",
+    "cutoff": 548
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "EWS",
+    "cutoff": 557
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "SC",
+    "cutoff": 393
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Data Science and AI",
+    "category": "ST",
+    "cutoff": 315
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Control and Instrumentation",
+    "category": "GEN",
+    "cutoff": 441
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Control and Instrumentation",
+    "category": "OBC-NCL",
+    "cutoff": 354
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Control and Instrumentation",
+    "category": "EWS",
+    "cutoff": 366
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Control and Instrumentation",
+    "category": "SC",
+    "cutoff": 351
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Electric Vehicle Technology",
+    "category": "GEN",
+    "cutoff": 397
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Electric Vehicle Technology",
+    "category": "OBC-NCL",
+    "cutoff": 351
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Electric Vehicle Technology",
+    "category": "EWS",
+    "cutoff": 316
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Electric Vehicle Technology",
+    "category": "SC",
+    "cutoff": 340
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Electric Vehicle Technology",
+    "category": "ST",
+    "cutoff": 244
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Mechatronics Engineering",
+    "category": "GEN",
+    "cutoff": 406
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Mechatronics Engineering",
+    "category": "OBC-NCL",
+    "cutoff": 351
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Mechatronics Engineering",
+    "category": "EWS",
+    "cutoff": 334
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Mechatronics Engineering",
+    "category": "SC",
+    "cutoff": 228
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Materials Science",
+    "category": "GEN",
+    "cutoff": 362
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Materials Science",
+    "category": "OBC-NCL",
+    "cutoff": 317
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Materials Science",
+    "category": "EWS",
+    "cutoff": 337
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Materials Science",
+    "category": "SC",
+    "cutoff": 245
+  },
+  {
+    "college": "IIT Bhilai",
+    "type": "IIT",
+    "program": "Materials Science",
+    "category": "ST",
+    "cutoff": 249
+  }
+]
