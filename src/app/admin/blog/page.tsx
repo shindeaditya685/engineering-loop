@@ -4,18 +4,23 @@ import { useMemo, useState } from "react";
 import {
   CheckCircle2,
   FileText,
+  ImagePlus,
   Loader2,
   Sparkles,
   Trash2,
   XCircle,
 } from "lucide-react";
 import useAutoRefresh from "@/hooks/useAutoRefresh";
+import BlogContent from "@/components/BlogContent";
+import { normalizeContentFormat, type ContentFormat } from "@/lib/richText";
 
 type BlogPost = {
   id: string;
   title: string;
   excerpt: string;
   content: string;
+  contentFormat?: ContentFormat;
+  coverImageUrl?: string;
   tags?: string[];
   authorName: string;
   authorEmail: string;
@@ -194,11 +199,31 @@ export default function AdminBlogPage() {
                     {post.authorName} | {post.authorEmail} | Updated{" "}
                     {formatDate(post.updatedAt || post.createdAt)}
                   </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-white/[0.05] px-2.5 py-1 text-[11px] font-semibold text-gray-400">
+                      {normalizeContentFormat(post.contentFormat)}
+                    </span>
+                    {post.coverImageUrl ? (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-white/[0.05] px-2.5 py-1 text-[11px] font-semibold text-gray-400">
+                        <ImagePlus className="h-3.5 w-3.5" />
+                        Cover image
+                      </span>
+                    ) : null}
+                  </div>
                   <p className="mt-4 text-sm leading-relaxed text-gray-300">
                     {post.excerpt}
                   </p>
-                  <div className="mt-4 whitespace-pre-line rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 text-sm leading-7 text-gray-300">
-                    {post.content}
+                  {post.coverImageUrl ? (
+                    <div className="mt-4 aspect-[16/7] overflow-hidden rounded-3xl border border-white/[0.06] bg-dark-900">
+                      <img
+                        src={post.coverImageUrl}
+                        alt={post.title}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="mt-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4">
+                    <BlogContent content={post.content} format={post.contentFormat} />
                   </div>
                 </div>
 

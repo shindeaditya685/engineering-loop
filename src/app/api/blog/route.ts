@@ -9,6 +9,10 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
+import {
+  normalizeContentFormat,
+  toPlainText,
+} from "@/lib/richText";
 
 function normalizeTags(tags: unknown): string[] {
   if (Array.isArray(tags)) {
@@ -80,6 +84,8 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const title = String(body.title || "").trim();
     const content = String(body.content || "").trim();
+    const contentFormat = normalizeContentFormat(body.contentFormat);
+    const coverImageUrl = String(body.coverImageUrl || "").trim();
     const authorName = String(body.authorName || "").trim();
     const authorEmail = String(body.authorEmail || "").trim().toLowerCase();
 
@@ -87,7 +93,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Title, content, author name and email are required." }, { status: 400 });
     }
 
-    const excerpt = String(body.excerpt || "").trim() || `${content.slice(0, 180)}${content.length > 180 ? "..." : ""}`;
+    const plainText = toPlainText(content, contentFormat);
+    const excerpt =
+      String(body.excerpt || "").trim() ||
+      `${plainText.slice(0, 180)}${plainText.length > 180 ? "..." : ""}`;
     const now = new Date().toISOString();
 
     await addDoc(collection(db, "blog_posts"), {
@@ -95,6 +104,8 @@ export async function POST(req: NextRequest) {
       slug: `${createSlug(title)}-${Date.now()}`,
       excerpt,
       content,
+      contentFormat,
+      coverImageUrl,
       tags: normalizeTags(body.tags),
       authorName,
       authorEmail,
@@ -141,15 +152,24 @@ export async function PUT(req: NextRequest) {
 
     const title = String(body.title || existing.title || "").trim();
     const content = String(body.content || existing.content || "").trim();
+    const contentFormat = normalizeContentFormat(
+      body.contentFormat || existing.contentFormat,
+    );
+    const coverImageUrl = String(
+      body.coverImageUrl ?? existing.coverImageUrl ?? "",
+    ).trim();
+    const plainText = toPlainText(content, contentFormat);
     const excerpt =
       String(body.excerpt || "").trim() ||
-      `${content.slice(0, 180)}${content.length > 180 ? "..." : ""}`;
+      `${plainText.slice(0, 180)}${plainText.length > 180 ? "..." : ""}`;
 
     await updateDoc(postRef, {
       title,
       slug: createSlug(title),
       excerpt,
       content,
+      contentFormat,
+      coverImageUrl,
       tags: normalizeTags(body.tags),
       status: existing.status === "published" ? "pending" : existing.status || "pending",
       updatedAt: new Date().toISOString(),
