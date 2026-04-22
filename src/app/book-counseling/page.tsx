@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Calendar,
@@ -15,6 +15,7 @@ import {
   IndianRupee,
 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
+import { useAuth } from "@/lib/auth";
 
 const plans = [
   {
@@ -84,6 +85,7 @@ const timeSlots = [
 ];
 
 export default function BookCounselingPage() {
+  const { user } = useAuth();
   const [step, setStep] = useState<"plans" | "form" | "success">("plans");
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState("");
@@ -99,6 +101,20 @@ export default function BookCounselingPage() {
     message: "",
   });
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+
+    setForm((current) => ({
+      ...current,
+      name: current.name || user.name || "",
+      email: current.email || user.email || "",
+      phone: current.phone || user.phone || "",
+      gatePaper: current.gatePaper || user.gatePaper || "",
+    }));
+  }, [user]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -495,7 +511,7 @@ export default function BookCounselingPage() {
                       ) : (
                         <>
                           <IndianRupee className="w-5 h-5" />
-                          Confirm Booking
+                          Request Booking
                         </>
                       )}
                     </button>
@@ -522,16 +538,15 @@ export default function BookCounselingPage() {
                   <CheckCircle2 className="w-10 h-10 text-green-400" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-white mb-3">
-                  Booking Confirmed!
+                  Booking Request Received
                 </h2>
                 <p className="text-gray-400 mb-2">
-                  Your {selectedPlan} counseling session has been booked
-                  successfully.
+                  Your {selectedPlan} counseling request has been saved.
                 </p>
                 {selectedDate && selectedTime && (
                   <p className="text-accent-cyan font-medium mb-6">
                     <Calendar className="w-4 h-4 inline mr-1" />
-                    {selectedDate} at {selectedTime} IST
+                    Requested slot: {selectedDate} at {selectedTime} IST
                   </p>
                 )}
                 <div className="bg-white/[0.03] rounded-xl p-4 border border-white/[0.04] mb-8 text-left">
@@ -541,22 +556,22 @@ export default function BookCounselingPage() {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2 text-sm text-gray-400">
                       <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
-                      Confirmation email sent to {form.email}
+                      Your request is visible in the dashboard immediately
                     </li>
                     <li className="flex items-start gap-2 text-sm text-gray-400">
                       <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
-                      Our team will confirm your slot via WhatsApp/call
+                      The admin team will confirm the final date and time
                     </li>
                     <li className="flex items-start gap-2 text-sm text-gray-400">
                       <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
-                      You&apos;ll receive a preparation checklist before the
-                      session
+                      Once confirmed, your Google Meet link and session note will
+                      appear in your bookings dashboard
                     </li>
                   </ul>
                 </div>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <Link href="/" className="btn-primary text-sm">
-                    Back to Home
+                  <Link href="/dashboard/bookings" className="btn-primary text-sm">
+                    View My Bookings
                   </Link>
                   <button
                     onClick={() => {

@@ -1,18 +1,30 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Mail, Trash2, Eye, Clock, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
+import { useState } from "react";
+import { Mail, Trash2, Eye, Clock, CheckCircle2, XCircle, Loader2 } from "lucide-react";
+import useAutoRefresh from "@/hooks/useAutoRefresh";
+
+type ContactItem = {
+  id: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  subject?: string;
+  message?: string;
+  status?: string;
+  createdAt?: string;
+};
 
 export default function AdminContactsPage() {
-  const [contacts, setContacts] = useState<any[]>([]);
+  const [contacts, setContacts] = useState<ContactItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [viewing, setViewing] = useState<any | null>(null);
+  const [viewing, setViewing] = useState<ContactItem | null>(null);
 
-  useEffect(() => { fetchContacts(); }, []);
+  useAutoRefresh(fetchContacts);
 
-    const fetchContacts = async () => {
+  async function fetchContacts() {
     try {
-      const res = await fetch('/api/admin/contacts');
+      const res = await fetch('/api/admin/contacts', { cache: 'no-store' });
       const data = await res.json();
       setContacts(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -21,7 +33,7 @@ export default function AdminContactsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this contact?')) return;
@@ -34,9 +46,9 @@ export default function AdminContactsPage() {
     fetchContacts();
   };
 
-  const formatDate = (ts: any) => {
+  const formatDate = (ts?: string) => {
     if (!ts) return 'N/A';
-    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    const d = new Date(ts);
     return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
   };
 

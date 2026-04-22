@@ -6,16 +6,8 @@ export async function POST(req: NextRequest) {
   try {
     const { password } = await req.json();
 
-    // DEBUG: Remove this after confirming
-    console.log('TYPED PASSWORD:', password);
-    console.log('ENV PASSWORD:', process.env.ADMIN_PASSWORD);
-    console.log('MATCH:', password === process.env.ADMIN_PASSWORD);
-
     if (password !== process.env.ADMIN_PASSWORD) {
-      return NextResponse.json({ 
-        error: 'Invalid password',
-        debug: process.env.ADMIN_PASSWORD ? 'ENV is set but mismatch' : 'ENV is MISSING' 
-      }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
     }
 
     const secret = new TextEncoder().encode(process.env.ADMIN_JWT_SECRET || 'fallback_secret');

@@ -1,155 +1,321 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Database, Mail, CalendarDays, TrendingUp, Building2, GraduationCap, ArrowUpRight, Clock } from 'lucide-react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
+import {
+  ArrowUpRight,
+  BookOpen,
+  CalendarDays,
+  Database,
+  Mail,
+  MessageSquare,
+  Trophy,
+} from "lucide-react";
+import useAutoRefresh from "@/hooks/useAutoRefresh";
 
 interface Stats {
   cutoffs: number;
   contacts: number;
   bookings: number;
   pendingBookings: number;
+  blogPosts: number;
+  questions: number;
+  achievements: number;
+}
+
+type ContactSummary = {
+  id: string;
+  name?: string;
+  subject?: string;
+  message?: string;
+  createdAt?: string;
+};
+
+type BookingSummary = {
+  id: string;
+  name?: string;
+  status?: string;
+  plan?: string;
+  preferredDate?: string;
+  createdAt?: string;
+};
+
+type BlogSummary = {
+  id: string;
+  title?: string;
+  status?: string;
+  authorName?: string;
+  updatedAt?: string;
+  createdAt?: string;
+};
+
+const statCards = [
+  {
+    label: "Cutoff Entries",
+    key: "cutoffs",
+    href: "/admin/cutoffs",
+    icon: Database,
+    iconClass: "bg-accent-cyan/10 text-accent-cyan",
+  },
+  {
+    label: "Contact Queries",
+    key: "contacts",
+    href: "/admin/contacts",
+    icon: Mail,
+    iconClass: "bg-accent-purple/10 text-accent-purple",
+  },
+  {
+    label: "Bookings",
+    key: "bookings",
+    href: "/admin/bookings",
+    icon: CalendarDays,
+    iconClass: "bg-accent-blue/10 text-accent-blue",
+  },
+  {
+    label: "Pending Bookings",
+    key: "pendingBookings",
+    href: "/admin/bookings",
+    icon: CalendarDays,
+    iconClass: "bg-amber-400/10 text-amber-400",
+  },
+  {
+    label: "Blog Posts",
+    key: "blogPosts",
+    href: "/admin/blog",
+    icon: BookOpen,
+    iconClass: "bg-green-400/10 text-green-400",
+  },
+  {
+    label: "Questions",
+    key: "questions",
+    href: "/admin/questions",
+    icon: MessageSquare,
+    iconClass: "bg-accent-purple/10 text-accent-purple",
+  },
+  {
+    label: "Achievements",
+    key: "achievements",
+    href: "/admin/achievements",
+    icon: Trophy,
+    iconClass: "bg-accent-cyan/10 text-accent-cyan",
+  },
+];
+
+function formatDate(value?: string) {
+  if (!value) {
+    return "N/A";
+  }
+
+  return new Date(value).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 }
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState<Stats>({ cutoffs: 0, contacts: 0, bookings: 0, pendingBookings: 0 });
-  const [recentContacts, setRecentContacts] = useState<any[]>([]);
-  const [recentBookings, setRecentBookings] = useState<any[]>([]);
+  const [stats, setStats] = useState<Stats>({
+    cutoffs: 0,
+    contacts: 0,
+    bookings: 0,
+    pendingBookings: 0,
+    blogPosts: 0,
+    questions: 0,
+    achievements: 0,
+  });
+  const [recentContacts, setRecentContacts] = useState<ContactSummary[]>([]);
+  const [recentBookings, setRecentBookings] = useState<BookingSummary[]>([]);
+  const [recentBlogPosts, setRecentBlogPosts] = useState<BlogSummary[]>([]);
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
-  const fetchStats = async () => {
+  async function fetchStats() {
     try {
-      const [cutoffsRes, contactsRes, bookingsRes] = await Promise.all([
-        fetch('/api/admin/cutoffs?limit=1'),
-        fetch('/api/admin/contacts'),
-        fetch('/api/admin/bookings'),
+      const [
+        cutoffsResponse,
+        contactsResponse,
+        bookingsResponse,
+        blogResponse,
+        questionsResponse,
+        achievementsResponse,
+      ] = await Promise.all([
+        fetch("/api/admin/cutoffs?limit=1", { cache: "no-store" }),
+        fetch("/api/admin/contacts", { cache: "no-store" }),
+        fetch("/api/admin/bookings", { cache: "no-store" }),
+        fetch("/api/admin/blog", { cache: "no-store" }),
+        fetch("/api/admin/questions", { cache: "no-store" }),
+        fetch("/api/admin/achievements", { cache: "no-store" }),
       ]);
 
-            const cutoffsData = await cutoffsRes.json();
-      const contactsRaw = await contactsRes.json();
-      const bookingsRaw = await bookingsRes.json();
-      const contactsData = Array.isArray(contactsRaw) ? contactsRaw : [];
-      const bookingsData = Array.isArray(bookingsRaw) ? bookingsRaw : [];
+      const [
+        cutoffsData,
+        contactsRaw,
+        bookingsRaw,
+        blogRaw,
+        questionsRaw,
+        achievementsRaw,
+      ] = await Promise.all([
+        cutoffsResponse.json(),
+        contactsResponse.json(),
+        bookingsResponse.json(),
+        blogResponse.json(),
+        questionsResponse.json(),
+        achievementsResponse.json(),
+      ]);
+
+      const contacts = Array.isArray(contactsRaw) ? (contactsRaw as ContactSummary[]) : [];
+      const bookings = Array.isArray(bookingsRaw) ? (bookingsRaw as BookingSummary[]) : [];
+      const blogPosts = Array.isArray(blogRaw) ? (blogRaw as BlogSummary[]) : [];
+      const questions = Array.isArray(questionsRaw) ? questionsRaw : [];
+      const achievements = Array.isArray(achievementsRaw) ? achievementsRaw : [];
 
       setStats({
         cutoffs: cutoffsData.total || 0,
-        contacts: contactsData.length,
-        bookings: bookingsData.length,
-        pendingBookings: bookingsData.filter((b: any) => b.status === 'pending').length,
+        contacts: contacts.length,
+        bookings: bookings.length,
+        pendingBookings: bookings.filter((booking) => booking.status === "pending").length,
+        blogPosts: blogPosts.length,
+        questions: questions.length,
+        achievements: achievements.length,
       });
 
-      setRecentContacts(contactsData.slice(0, 5));
-      setRecentBookings(bookingsData.slice(0, 5));
+      setRecentContacts(contacts.slice(0, 4));
+      setRecentBookings(bookings.slice(0, 4));
+      setRecentBlogPosts(blogPosts.slice(0, 4));
     } catch (error) {
-      console.error('Stats fetch error:', error);
+      console.error("Admin dashboard fetch error:", error);
     }
-  };
+  }
 
-  const statCards = [
-    { label: 'Cutoff Entries', value: stats.cutoffs, icon: Database, color: 'accent-cyan', href: '/admin/cutoffs' },
-    { label: 'Contact Queries', value: stats.contacts, icon: Mail, color: 'accent-purple', href: '/admin/contacts' },
-    { label: 'Total Bookings', value: stats.bookings, icon: CalendarDays, color: 'accent-blue', href: '/admin/bookings' },
-    { label: 'Pending Bookings', value: stats.pendingBookings, icon: TrendingUp, color: 'accent-pink', href: '/admin/bookings' },
-  ];
-
-  const formatDate = (ts: any) => {
-    if (!ts) return 'N/A';
-    const date = ts.toDate ? ts.toDate() : new Date(ts);
-    return date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-  };
+  useAutoRefresh(fetchStats);
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-2xl font-bold text-white">Dashboard</h1>
-        <p className="text-sm text-gray-500 mt-1">Overview of your website data</p>
+        <p className="mt-1 text-sm text-gray-500">
+          Overview of content, community activity, and bookings.
+        </p>
       </div>
 
-      {/* Stat Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {statCards.map((card) => (
-          <Link key={card.label} href={card.href} className="glass-card-hover p-5 block group">
-            <div className="flex items-center justify-between mb-3">
-              <div className={`w-10 h-10 rounded-xl bg-${card.color}/10 flex items-center justify-center`}>
-                <card.icon className={`w-5 h-5 text-${card.color}`} />
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {statCards.map((card) => {
+          const value = stats[card.key as keyof Stats];
+
+          return (
+            <Link key={card.label} href={card.href} className="glass-card-hover block p-5 group">
+              <div className="mb-3 flex items-center justify-between">
+                <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${card.iconClass}`}>
+                  <card.icon className="h-5 w-5" />
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-gray-600 transition-colors group-hover:text-accent-cyan" />
               </div>
-              <ArrowUpRight className="w-4 h-4 text-gray-600 group-hover:text-accent-cyan transition-colors" />
-            </div>
-            <p className="font-display text-2xl font-bold text-white">{card.value}</p>
-            <p className="text-xs text-gray-500 mt-1">{card.label}</p>
-          </Link>
-        ))}
+              <p className="font-display text-2xl font-bold text-white">{value}</p>
+              <p className="mt-1 text-xs text-gray-500">{card.label}</p>
+            </Link>
+          );
+        })}
       </div>
 
-      {/* Recent Tables */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Recent Contacts */}
+      <div className="grid gap-6 xl:grid-cols-3">
         <div className="glass-card p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-white flex items-center gap-2">
-              <Mail className="w-4 h-4 text-accent-purple" /> Recent Contacts
-            </h2>
-            <Link href="/admin/contacts" className="text-xs text-accent-cyan hover:underline">View all</Link>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-white">Recent Contacts</h2>
+            <Link href="/admin/contacts" className="text-xs text-accent-cyan hover:underline">
+              View all
+            </Link>
           </div>
           {recentContacts.length === 0 ? (
-            <p className="text-sm text-gray-600 text-center py-8">No contacts yet</p>
+            <p className="py-8 text-center text-sm text-gray-600">No contacts yet</p>
           ) : (
             <div className="space-y-3">
-              {recentContacts.map((c) => (
-                <div key={c.id} className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02]">
-                  <div className="w-8 h-8 rounded-lg bg-accent-purple/10 flex items-center justify-center shrink-0 text-xs font-bold text-accent-purple">
-                    {c.name?.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-white truncate">{c.name}</p>
-                    <p className="text-xs text-gray-500 truncate">{c.subject || c.message?.slice(0, 50)}</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${c.status === 'replied' ? 'bg-green-400/10 text-green-400' : 'bg-amber-400/10 text-amber-400'}`}>
-                      {c.status || 'new'}
-                    </span>
-                    <p className="text-[10px] text-gray-600 mt-1">{formatDate(c.createdAt)}</p>
-                  </div>
+              {recentContacts.map((contact) => (
+                <div key={contact.id} className="rounded-lg bg-white/[0.02] p-3">
+                  <p className="text-sm font-medium text-white">{contact.name}</p>
+                  <p className="mt-1 truncate text-xs text-gray-500">
+                    {contact.subject || contact.message}
+                  </p>
+                  <p className="mt-2 text-[10px] text-gray-600">
+                    {formatDate(contact.createdAt)}
+                  </p>
                 </div>
               ))}
             </div>
           )}
         </div>
 
-        {/* Recent Bookings */}
         <div className="glass-card p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-white flex items-center gap-2">
-              <CalendarDays className="w-4 h-4 text-accent-blue" /> Recent Bookings
-            </h2>
-            <Link href="/admin/bookings" className="text-xs text-accent-cyan hover:underline">View all</Link>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-white">Recent Bookings</h2>
+            <Link href="/admin/bookings" className="text-xs text-accent-cyan hover:underline">
+              View all
+            </Link>
           </div>
           {recentBookings.length === 0 ? (
-            <p className="text-sm text-gray-600 text-center py-8">No bookings yet</p>
+            <p className="py-8 text-center text-sm text-gray-600">No bookings yet</p>
           ) : (
             <div className="space-y-3">
-              {recentBookings.map((b) => (
-                <div key={b.id} className="flex items-start gap-3 p-3 rounded-lg bg-white/[0.02]">
-                  <div className="w-8 h-8 rounded-lg bg-accent-blue/10 flex items-center justify-center shrink-0 text-xs font-bold text-accent-blue">
-                    {b.name?.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-white truncate">{b.name}</p>
-                    <p className="text-xs text-gray-500">{b.plan} {b.preferredDate ? `• ${b.preferredDate}` : ''}</p>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
-                      b.status === 'confirmed' ? 'bg-green-400/10 text-green-400' :
-                      b.status === 'cancelled' ? 'bg-red-400/10 text-red-400' :
-                      'bg-amber-400/10 text-amber-400'
-                    }`}>
-                      {b.status || 'pending'}
+              {recentBookings.map((booking) => (
+                <div key={booking.id} className="rounded-lg bg-white/[0.02] p-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="truncate text-sm font-medium text-white">
+                      {booking.name}
+                    </p>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                        booking.status === "confirmed"
+                          ? "bg-green-400/10 text-green-400"
+                          : booking.status === "cancelled"
+                            ? "bg-red-400/10 text-red-400"
+                            : "bg-amber-400/10 text-amber-400"
+                      }`}
+                    >
+                      {booking.status || "pending"}
                     </span>
-                    <p className="text-[10px] text-gray-600 mt-1">{formatDate(b.createdAt)}</p>
                   </div>
+                  <p className="mt-1 text-xs text-gray-500">
+                    {booking.plan} | {booking.preferredDate || "No date"}
+                  </p>
+                  <p className="mt-2 text-[10px] text-gray-600">
+                    {formatDate(booking.createdAt)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="glass-card p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-white">Recent Blog Activity</h2>
+            <Link href="/admin/blog" className="text-xs text-accent-cyan hover:underline">
+              View all
+            </Link>
+          </div>
+          {recentBlogPosts.length === 0 ? (
+            <p className="py-8 text-center text-sm text-gray-600">No blog posts yet</p>
+          ) : (
+            <div className="space-y-3">
+              {recentBlogPosts.map((post) => (
+                <div key={post.id} className="rounded-lg bg-white/[0.02] p-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="truncate text-sm font-medium text-white">
+                      {post.title}
+                    </p>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                        post.status === "published"
+                          ? "bg-green-400/10 text-green-400"
+                          : post.status === "rejected"
+                            ? "bg-red-400/10 text-red-400"
+                            : "bg-amber-400/10 text-amber-400"
+                      }`}
+                    >
+                      {post.status || "pending"}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-gray-500">{post.authorName}</p>
+                  <p className="mt-2 text-[10px] text-gray-600">
+                    {formatDate(post.updatedAt || post.createdAt)}
+                  </p>
                 </div>
               ))}
             </div>

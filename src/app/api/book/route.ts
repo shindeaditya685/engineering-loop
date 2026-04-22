@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,19 +15,25 @@ export async function POST(req: NextRequest) {
 
     await addDoc(collection(db, "bookings"), {
       ...data,
+      email: String(data.email).toLowerCase(),
       status: "pending",
+      confirmedDate: "",
+      confirmedTime: "",
+      meetLink: "",
+      adminNote: "",
       createdAt: serverTimestamp(),
+      updatedAt: new Date().toISOString(),
     });
 
     return NextResponse.json({
       success: true,
-      message: "Counseling session booked successfully!",
+      message: "Counseling request received. We will confirm the slot shortly.",
     });
   } catch (error) {
     console.error("Booking error:", error);
     return NextResponse.json({
       success: true,
-      message: "Booking received! We will confirm your slot shortly.",
+      message: "Booking received. We will confirm your slot shortly.",
     });
   }
 }

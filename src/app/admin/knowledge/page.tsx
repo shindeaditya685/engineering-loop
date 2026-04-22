@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BookOpen, Plus, Pencil, Trash2, Save, X, Loader2, Database, Lightbulb } from 'lucide-react';
+import useAutoRefresh from "@/hooks/useAutoRefresh";
 
 interface KnowledgeEntry {
   id: string;
@@ -30,11 +31,11 @@ export default function AdminKnowledgePage() {
   const [saving, setSaving] = useState(false);
   const [seedLoading, setSeedLoading] = useState(false);
 
-  useEffect(() => { fetchEntries(); }, []);
+  useAutoRefresh(fetchEntries);
 
-  const fetchEntries = async () => {
+  async function fetchEntries() {
     try {
-      const res = await fetch('/api/admin/knowledge');
+      const res = await fetch('/api/admin/knowledge', { cache: 'no-store' });
       const data = await res.json();
       setEntries(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -42,7 +43,7 @@ export default function AdminKnowledgePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   const handleSave = async () => {
     if (!form.topic || !form.content) return;

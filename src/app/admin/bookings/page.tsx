@@ -1,103 +1,297 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { CalendarDays, Trash2, Eye, Clock, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
+import { useMemo, useState } from "react";
+import {
+  CalendarDays,
+  CheckCircle2,
+  ExternalLink,
+  Loader2,
+  PencilLine,
+  Trash2,
+  Video,
+  X,
+} from "lucide-react";
+import useAutoRefresh from "@/hooks/useAutoRefresh";
+
+type Booking = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  plan: string;
+  gateRank?: string;
+  gatePaper?: string;
+  category?: string;
+  branchPreference?: string;
+  message?: string;
+  preferredDate?: string;
+  preferredTime?: string;
+  confirmedDate?: string;
+  confirmedTime?: string;
+  meetLink?: string;
+  adminNote?: string;
+  status: "pending" | "confirmed" | "completed" | "cancelled";
+  createdAt?: string;
+};
+
+const statusConfig = {
+  pending: { color: "text-amber-400", bg: "bg-amber-400/10", label: "Pending" },
+  confirmed: { color: "text-green-400", bg: "bg-green-400/10", label: "Confirmed" },
+  completed: { color: "text-accent-cyan", bg: "bg-accent-cyan/10", label: "Completed" },
+  cancelled: { color: "text-red-400", bg: "bg-red-400/10", label: "Cancelled" },
+};
+
+function formatDateTime(value?: string) {
+  if (!value) {
+    return "N/A";
+  }
+
+  return new Date(value).toLocaleString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
 
 export default function AdminBookingsPage() {
-  const [bookings, setBookings] = useState<any[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
-  const [viewing, setViewing] = useState<any | null>(null);
+  const [workingId, setWorkingId] = useState("");
+  const [editing, setEditing] = useState<Booking | null>(null);
+  const [form, setForm] = useState({
+    status: "pending",
+    confirmedDate: "",
+    confirmedTime: "",
+    meetLink: "",
+    adminNote: "",
+  });
 
-  useEffect(() => { fetchBookings(); }, []);
+  const stats = useMemo(
+    () => ({
+      total: bookings.length,
+      pending: bookings.filter((booking) => booking.status === "pending").length,
+      confirmed: bookings.filter((booking) => booking.status === "confirmed").length,
+    }),
+    [bookings],
+  );
 
-    const fetchBookings = async () => {
+  async function fetchBookings() {
     try {
-      const res = await fetch('/api/admin/bookings');
-      const data = await res.json();
+      const response = await fetch("/api/admin/bookings", { cache: "no-store" });
+      const data = await response.json();
       setBookings(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error(error);
+      console.error("Admin bookings fetch error:", error);
       setBookings([]);
     } finally {
       setLoading(false);
     }
+  }
+
+  useAutoRefresh(fetchBookings);
+
+  const openEditor = (booking: Booking) => {
+    setEditing(booking);
+    setForm({
+      status: booking.status || "pending",
+      confirmedDate: booking.confirmedDate || "",
+      confirmedTime: booking.confirmedTime || "",
+      meetLink: booking.meetLink || "",
+      adminNote: booking.adminNote || "",
+    });
+  };
+
+  const closeEditor = () => {
+    setEditing(null);
+    setForm({
+      status: "pending",
+      confirmedDate: "",
+      confirmedTime: "",
+      meetLink: "",
+      adminNote: "",
+    });
+  };
+
+  const saveBooking = async () => {
+    if (!editing) {
+      return;
+    }
+
+    setWorkingId(editing.id);
+    try {
+      const response = await fetch("/api/admin/bookings", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: editing.id,
+          ...form,
+        }),
+      });
+
+      const data = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(data?.error || "Failed to update booking");
+      }
+
+      closeEditor();
+      await fetchBookings();
+    } catch (error) {
+      console.error("Admin bookings save error:", error);
+      alert(error instanceof Error ? error.message : "Failed to update booking");
+    } finally {
+      setWorkingId("");
+    }
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Delete this booking?')) return;
-    await fetch(`/api/admin/bookings?id=${id}`, { method: 'DELETE' });
-    fetchBookings();
-  };
+    if (!confirm("Delete this booking?")) {
+      return;
+    }
 
-  const handleStatus = async (id: string, status: string) => {
-    await fetch('/api/admin/bookings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id, status }) });
-    fetchBookings();
-  };
-
-  const formatDate = (ts: any) => {
-    if (!ts) return 'N/A';
-    const d = ts.toDate ? ts.toDate() : new Date(ts);
-    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-  };
-
-  const statusConfig: Record<string, { color: string; bg: string }> = {
-    pending: { color: 'text-amber-400', bg: 'bg-amber-400/10' },
-    confirmed: { color: 'text-green-400', bg: 'bg-green-400/10' },
-    completed: { color: 'text-accent-cyan', bg: 'bg-accent-cyan/10' },
-    cancelled: { color: 'text-red-400', bg: 'bg-red-400/10' },
+    setWorkingId(id);
+    try {
+      await fetch(`/api/admin/bookings?id=${id}`, { method: "DELETE" });
+      if (editing?.id === id) {
+        closeEditor();
+      }
+      await fetchBookings();
+    } catch (error) {
+      console.error("Admin bookings delete error:", error);
+    } finally {
+      setWorkingId("");
+    }
   };
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl font-bold text-white flex items-center gap-2">
-          <CalendarDays className="w-6 h-6 text-accent-blue" /> Counseling Bookings
+        <h1 className="flex items-center gap-2 font-display text-2xl font-bold text-white">
+          <CalendarDays className="h-6 w-6 text-accent-blue" />
+          Counseling Bookings
         </h1>
-        <p className="text-sm text-gray-500 mt-1">{bookings.length} total bookings • {bookings.filter(b => b.status === 'pending').length} pending</p>
+        <p className="mt-1 text-sm text-gray-500">
+          Confirm session timing, attach Google Meet links, and share notes with students.
+        </p>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <div className="glass-card p-5">
+          <p className="text-xs uppercase tracking-wide text-gray-500">Total</p>
+          <p className="mt-2 font-display text-3xl font-bold text-white">
+            {stats.total}
+          </p>
+        </div>
+        <div className="glass-card p-5">
+          <p className="text-xs uppercase tracking-wide text-gray-500">Pending</p>
+          <p className="mt-2 font-display text-3xl font-bold text-amber-400">
+            {stats.pending}
+          </p>
+        </div>
+        <div className="glass-card p-5">
+          <p className="text-xs uppercase tracking-wide text-gray-500">Confirmed</p>
+          <p className="mt-2 font-display text-3xl font-bold text-green-400">
+            {stats.confirmed}
+          </p>
+        </div>
       </div>
 
       {loading ? (
-        <div className="text-center py-12"><Loader2 className="w-6 h-6 text-accent-cyan animate-spin mx-auto" /></div>
+        <div className="glass-card flex items-center justify-center p-12">
+          <Loader2 className="h-6 w-6 animate-spin text-accent-cyan" />
+        </div>
       ) : bookings.length === 0 ? (
-        <div className="glass-card p-12 text-center text-gray-600">No bookings yet</div>
+        <div className="glass-card p-12 text-center text-sm text-gray-500">
+          No bookings found.
+        </div>
       ) : (
-        <div className="space-y-3">
-          {bookings.map((b) => {
-            const sc = statusConfig[b.status] || statusConfig.pending;
+        <div className="space-y-4">
+          {bookings.map((booking) => {
+            const status =
+              statusConfig[booking.status] || statusConfig.pending;
+
             return (
-              <div key={b.id} className="glass-card p-4">
-                <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-accent-blue/10 flex items-center justify-center shrink-0 text-sm font-bold text-accent-blue">
-                    {b.name?.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <p className="text-sm font-semibold text-white">{b.name}</p>
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${sc.bg} ${sc.color}`}>{b.status || 'pending'}</span>
-                      <span className="text-xs text-accent-purple font-medium">{b.plan}</span>
+              <div key={booking.id} className="glass-card p-5">
+                <div className="flex flex-col gap-5 xl:flex-row xl:items-start">
+                  <div className="min-w-0 flex-1">
+                    <div className="mb-2 flex flex-wrap items-center gap-2">
+                      <p className="text-sm font-semibold text-white">
+                        {booking.name}
+                      </p>
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${status.bg} ${status.color}`}
+                      >
+                        {status.label}
+                      </span>
+                      <span className="rounded-full bg-white/[0.05] px-2.5 py-1 text-[11px] font-semibold text-accent-purple">
+                        {booking.plan || "Plan not set"}
+                      </span>
                     </div>
-                    <p className="text-xs text-gray-500">{b.email} {b.phone ? `• ${b.phone}` : ''}</p>
-                    <p className="text-[10px] text-gray-600 mt-0.5 flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {b.preferredDate} {b.preferredTime ? `at ${b.preferredTime}` : ''} • {formatDate(b.createdAt)}
-                    </p>
+
+                    <div className="grid gap-2 text-sm text-gray-400 md:grid-cols-2 xl:grid-cols-3">
+                      <p>{booking.email}</p>
+                      <p>{booking.phone || "Phone not provided"}</p>
+                      <p>Booked {formatDateTime(booking.createdAt)}</p>
+                      <p>
+                        Preferred: {booking.preferredDate || "N/A"}
+                        {booking.preferredTime ? ` at ${booking.preferredTime}` : ""}
+                      </p>
+                      <p>
+                        Confirmed: {booking.confirmedDate || "Not set"}
+                        {booking.confirmedTime ? ` at ${booking.confirmedTime}` : ""}
+                      </p>
+                      <p>
+                        GATE: {booking.gatePaper || "-"}
+                        {booking.gateRank ? ` | Rank ${booking.gateRank}` : ""}
+                      </p>
+                    </div>
+
+                    {booking.adminNote && (
+                      <div className="mt-4 rounded-2xl border border-accent-cyan/10 bg-accent-cyan/[0.05] p-4">
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-accent-cyan">
+                          Student note from admin
+                        </p>
+                        <p className="mt-1 text-sm text-gray-300">
+                          {booking.adminNote}
+                        </p>
+                      </div>
+                    )}
+
+                    {booking.meetLink && (
+                      <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-green-400/10 px-3 py-1.5 text-xs font-semibold text-green-400">
+                        <Video className="h-3.5 w-3.5" />
+                        Meet link attached
+                      </div>
+                    )}
                   </div>
-                  <div className="flex items-center gap-1 shrink-0">
-                    {b.status !== 'confirmed' && b.status !== 'completed' && (
-                      <button onClick={() => handleStatus(b.id, 'confirmed')} className="p-2 rounded-lg text-gray-500 hover:text-green-400 hover:bg-green-400/10 transition-all" title="Confirm">
-                        <CheckCircle2 className="w-4 h-4" />
-                      </button>
-                    )}
-                    {b.status !== 'cancelled' && b.status !== 'completed' && (
-                      <button onClick={() => handleStatus(b.id, 'cancelled')} className="p-2 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-400/10 transition-all" title="Cancel">
-                        <XCircle className="w-4 h-4" />
-                      </button>
-                    )}
-                    <button onClick={() => setViewing(b)} className="p-2 rounded-lg text-gray-500 hover:text-accent-cyan hover:bg-accent-cyan/10 transition-all" title="View">
-                      <Eye className="w-4 h-4" />
+
+                  <div className="flex flex-wrap gap-2 xl:w-[260px] xl:flex-col">
+                    <button
+                      onClick={() => openEditor(booking)}
+                      className="btn-primary !px-4 !py-2 text-sm"
+                    >
+                      <PencilLine className="h-4 w-4" />
+                      Manage booking
                     </button>
-                    <button onClick={() => handleDelete(b.id)} className="p-2 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-400/10 transition-all" title="Delete">
-                      <Trash2 className="w-4 h-4" />
+                    {booking.meetLink && (
+                      <a
+                        href={booking.meetLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-secondary !px-4 !py-2 text-sm"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        Open meet link
+                      </a>
+                    )}
+                    <button
+                      onClick={() => void handleDelete(booking.id)}
+                      disabled={workingId === booking.id}
+                      className="flex items-center justify-center gap-2 rounded-xl border border-red-400/20 bg-red-400/10 px-4 py-2 text-sm font-medium text-red-300 transition-colors hover:bg-red-400/15"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      Delete
                     </button>
                   </div>
                 </div>
@@ -107,30 +301,137 @@ export default function AdminBookingsPage() {
         </div>
       )}
 
-      {/* View Modal */}
-      {viewing && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm" onClick={() => setViewing(null)}>
-          <div className="glass-card p-6 w-full max-w-lg border border-white/[0.08] max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="font-display text-lg font-bold text-white">Booking Details</h2>
-              <button onClick={() => setViewing(null)} className="p-1.5 rounded-lg text-gray-500 hover:text-white"><XCircle className="w-5 h-5" /></button>
+      {editing && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 backdrop-blur-sm"
+          onClick={closeEditor}
+        >
+          <div
+            className="glass-card w-full max-w-2xl border border-white/[0.08] p-6"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mb-5 flex items-start justify-between gap-3">
+              <div>
+                <h2 className="font-display text-xl font-bold text-white">
+                  Manage booking
+                </h2>
+                <p className="text-sm text-gray-500">
+                  {editing.name} | {editing.email}
+                </p>
+              </div>
+              <button
+                onClick={closeEditor}
+                className="rounded-xl p-2 text-gray-500 transition-colors hover:bg-white/[0.04] hover:text-white"
+              >
+                <X className="h-5 w-5" />
+              </button>
             </div>
-            <div className="space-y-3 text-sm">
-              {[
-                ['Name', viewing.name], ['Email', viewing.email], ['Phone', viewing.phone],
-                ['Plan', viewing.plan], ['GATE Rank', viewing.gateRank], ['GATE Paper', viewing.gatePaper],
-                ['Category', viewing.category], ['Branch Pref', viewing.branchPreference],
-                ['Preferred Date', viewing.preferredDate], ['Preferred Time', viewing.preferredTime],
-                ['Status', viewing.status || 'pending'], ['Booked On', formatDate(viewing.createdAt)],
-              ].map(([label, val]) => val ? (
-                <div key={label} className="flex"><span className="text-gray-500 w-36 shrink-0">{label}:</span> <span className="text-white">{val}</span></div>
-              ) : null)}
-              {viewing.message && (
-                <div className="pt-2 border-t border-white/[0.04]">
-                  <span className="text-gray-500">Message:</span>
-                  <p className="text-gray-300 mt-1 bg-white/[0.02] p-3 rounded-lg">{viewing.message}</p>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="label-text">Status</label>
+                <select
+                  value={form.status}
+                  onChange={(event) =>
+                    setForm((current) => ({ ...current, status: event.target.value }))
+                  }
+                  className="input-field"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+              <div>
+                <label className="label-text">Requested slot</label>
+                <div className="input-field flex items-center text-sm text-gray-400">
+                  {editing.preferredDate || "N/A"}
+                  {editing.preferredTime ? ` at ${editing.preferredTime}` : ""}
                 </div>
-              )}
+              </div>
+              <div>
+                <label className="label-text">Confirmed date</label>
+                <input
+                  type="date"
+                  value={form.confirmedDate}
+                  onChange={(event) =>
+                    setForm((current) => ({
+                      ...current,
+                      confirmedDate: event.target.value,
+                    }))
+                  }
+                  className="input-field"
+                />
+              </div>
+              <div>
+                <label className="label-text">Confirmed time</label>
+                <input
+                  type="text"
+                  value={form.confirmedTime}
+                  onChange={(event) =>
+                    setForm((current) => ({
+                      ...current,
+                      confirmedTime: event.target.value,
+                    }))
+                  }
+                  className="input-field"
+                  placeholder="5:30 PM IST"
+                />
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <label className="label-text">Google Meet link</label>
+              <input
+                type="url"
+                value={form.meetLink}
+                onChange={(event) =>
+                  setForm((current) => ({ ...current, meetLink: event.target.value }))
+                }
+                className="input-field"
+                placeholder="https://meet.google.com/..."
+              />
+            </div>
+
+            <div className="mt-4">
+              <label className="label-text">Student-facing note</label>
+              <textarea
+                value={form.adminNote}
+                onChange={(event) =>
+                  setForm((current) => ({ ...current, adminNote: event.target.value }))
+                }
+                className="input-field min-h-[140px] resize-none"
+                placeholder="Share what the student should prepare, expected agenda, or any follow-up instruction."
+              />
+            </div>
+
+            <div className="mt-6 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4 text-sm text-gray-400">
+              If you set the booking to confirmed, add the confirmed date, time,
+              and Google Meet link so the student can see them in the dashboard.
+            </div>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+              <button onClick={closeEditor} className="btn-secondary text-sm">
+                Cancel
+              </button>
+              <button
+                onClick={() => void saveBooking()}
+                disabled={workingId === editing.id}
+                className="btn-primary text-sm"
+              >
+                {workingId === editing.id ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 className="h-4 w-4" />
+                    Save booking
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>
