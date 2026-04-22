@@ -9,6 +9,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore";
+import { verifyCommunityAccess } from "@/lib/communityAccess";
 
 type QuestionAnswer = {
   id: string;
@@ -58,6 +59,19 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const email = searchParams.get("email")?.toLowerCase() || "";
+    const uid = searchParams.get("uid")?.trim() || "";
+    let verifiedAuthorEmail = "";
+
+    if (email && uid) {
+      const access = await verifyCommunityAccess({
+        authorUid: uid,
+        authorEmail: email,
+      });
+
+      if (access.ok && access.user) {
+        verifiedAuthorEmail = access.user.email;
+      }
+    }
 
     const snapshot = await getDocs(collection(db, "questions"));
     let questions: QuestionRecord[] = snapshot.docs.map((entry) => ({
@@ -67,9 +81,9 @@ export async function GET(req: NextRequest) {
 
     const filteredQuestions = questions
       .filter((question) =>
-        email
+        verifiedAuthorEmail
           ? question.status === "published" ||
-            String(question.authorEmail || "").toLowerCase() === email
+            String(question.authorEmail || "").toLowerCase() === verifiedAuthorEmail
           : question.status === "published",
       )
       .map((question) => ({
@@ -101,11 +115,21 @@ export async function POST(req: NextRequest) {
     if (action === "answer") {
       const id = String(body.id || "");
       const answerBody = String(body.body || "").trim();
-      const authorName = String(body.authorName || "").trim();
       const authorEmail = String(body.authorEmail || "").trim().toLowerCase();
+      const access = await verifyCommunityAccess({
+        authorUid: body.authorUid,
+        authorEmail,
+      });
 
-      if (!id || !answerBody || !authorName || !authorEmail) {
+      if (!id || !answerBody || !authorEmail) {
         return NextResponse.json({ error: "Question id, answer body, author name and email are required." }, { status: 400 });
+      }
+
+      if (!access.ok || !access.user) {
+        return NextResponse.json(
+          { error: access.error || "Your account could not be verified." },
+          { status: 403 },
+        );
       }
 
       const questionRef = doc(db, "questions", id);
@@ -120,9 +144,9 @@ export async function POST(req: NextRequest) {
       answers.push({
         id: `${Date.now()}`,
         body: answerBody,
-        authorName,
-        authorEmail,
-        authorUid: String(body.authorUid || ""),
+        authorName: access.user.name,
+        authorEmail: access.user.email,
+        authorUid: access.user.uid,
         createdAt: new Date().toISOString(),
         status: "published",
       });
@@ -140,11 +164,21 @@ export async function POST(req: NextRequest) {
 
     const title = String(body.title || "").trim();
     const questionBody = String(body.body || "").trim();
-    const authorName = String(body.authorName || "").trim();
     const authorEmail = String(body.authorEmail || "").trim().toLowerCase();
+    const access = await verifyCommunityAccess({
+      authorUid: body.authorUid,
+      authorEmail,
+    });
 
-    if (!title || !questionBody || !authorName || !authorEmail) {
+    if (!title || !questionBody || !authorEmail) {
       return NextResponse.json({ error: "Title, question, author name and email are required." }, { status: 400 });
+    }
+
+    if (!access.ok || !access.user) {
+      return NextResponse.json(
+        { error: access.error || "Your account could not be verified." },
+        { status: 403 },
+      );
     }
 
     const now = new Date().toISOString();
@@ -152,9 +186,9 @@ export async function POST(req: NextRequest) {
       title,
       body: questionBody,
       tags: normalizeTags(body.tags),
-      authorName,
-      authorEmail,
-      authorUid: String(body.authorUid || ""),
+      authorName: access.user.name,
+      authorEmail: access.user.email,
+      authorUid: access.user.uid,
       status: "pending",
       adminNote: "",
       answers: [],
@@ -177,9 +211,20 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     const id = String(body.id || "");
     const authorEmail = String(body.authorEmail || "").trim().toLowerCase();
+    const access = await verifyCommunityAccess({
+      authorUid: body.authorUid,
+      authorEmail,
+    });
 
     if (!id || !authorEmail) {
       return NextResponse.json({ error: "Question id and author email are required." }, { status: 400 });
+    }
+
+    if (!access.ok || !access.user) {
+      return NextResponse.json(
+        { error: access.error || "Your account could not be verified." },
+        { status: 403 },
+      );
     }
 
     const questionRef = doc(db, "questions", id);
@@ -190,7 +235,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const existing = snapshot.data();
-    if (String(existing.authorEmail || "").toLowerCase() !== authorEmail) {
+    if (String(existing.authorEmail || "").toLowerCase() !== access.user.email) {
       return NextResponse.json({ error: "You can only edit your own question." }, { status: 403 });
     }
 
@@ -217,9 +262,20 @@ export async function DELETE(req: NextRequest) {
     const body = await req.json();
     const id = String(body.id || "");
     const authorEmail = String(body.authorEmail || "").trim().toLowerCase();
+    const access = await verifyCommunityAccess({
+      authorUid: body.authorUid,
+      authorEmail,
+    });
 
     if (!id || !authorEmail) {
       return NextResponse.json({ error: "Question id and author email are required." }, { status: 400 });
+    }
+
+    if (!access.ok || !access.user) {
+      return NextResponse.json(
+        { error: access.error || "Your account could not be verified." },
+        { status: 403 },
+      );
     }
 
     const questionRef = doc(db, "questions", id);
@@ -229,7 +285,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: "Question not found." }, { status: 404 });
     }
 
-    if (String(snapshot.data().authorEmail || "").toLowerCase() !== authorEmail) {
+    if (String(snapshot.data().authorEmail || "").toLowerCase() !== access.user.email) {
       return NextResponse.json({ error: "You can only delete your own question." }, { status: 403 });
     }
 

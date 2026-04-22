@@ -98,11 +98,16 @@ export default function BlogPage() {
 
   async function fetchPosts() {
     try {
-      const search = user?.email
-        ? `?email=${encodeURIComponent(user.email)}`
+      const search = user?.email && user.uid
+        ? `?email=${encodeURIComponent(user.email)}&uid=${encodeURIComponent(user.uid)}`
         : "";
       const response = await fetch(`/api/blog${search}`, { cache: "no-store" });
-      const data = await response.json();
+      const data = await response.json().catch(() => null);
+      if (!response.ok) {
+        throw new Error(
+          typeof data?.error === "string" ? data.error : "Failed to fetch blog posts",
+        );
+      }
       const nextPosts = Array.isArray(data) ? data : [];
       setPosts(nextPosts);
 
@@ -192,7 +197,6 @@ export default function BlogPage() {
         body: JSON.stringify({
           id: editingId,
           ...form,
-          authorName: user.name || "Student",
           authorEmail: user.email,
           authorUid: user.uid,
         }),
@@ -222,7 +226,11 @@ export default function BlogPage() {
       const response = await fetch("/api/blog", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, authorEmail: user.email }),
+        body: JSON.stringify({
+          id,
+          authorEmail: user.email,
+          authorUid: user.uid,
+        }),
       });
 
       if (!response.ok) {

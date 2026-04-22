@@ -10,6 +10,8 @@ import {
   Mail,
   MessageSquare,
   Trophy,
+  UserX,
+  Users,
 } from "lucide-react";
 import useAutoRefresh from "@/hooks/useAutoRefresh";
 
@@ -21,6 +23,8 @@ interface Stats {
   blogPosts: number;
   questions: number;
   achievements: number;
+  users: number;
+  bannedUsers: number;
 }
 
 type ContactSummary = {
@@ -47,6 +51,16 @@ type BlogSummary = {
   authorName?: string;
   updatedAt?: string;
   createdAt?: string;
+};
+
+type UserSummary = {
+  uid: string;
+  name?: string;
+  email?: string;
+  provider?: string;
+  status?: string;
+  createdAt?: string | null;
+  lastLoginAt?: string | null;
 };
 
 const statCards = [
@@ -99,6 +113,20 @@ const statCards = [
     icon: Trophy,
     iconClass: "bg-accent-cyan/10 text-accent-cyan",
   },
+  {
+    label: "Users",
+    key: "users",
+    href: "/admin/users",
+    icon: Users,
+    iconClass: "bg-accent-blue/10 text-accent-blue",
+  },
+  {
+    label: "Banned Users",
+    key: "bannedUsers",
+    href: "/admin/users",
+    icon: UserX,
+    iconClass: "bg-red-400/10 text-red-400",
+  },
 ];
 
 function formatDate(value?: string) {
@@ -122,10 +150,13 @@ export default function AdminDashboard() {
     blogPosts: 0,
     questions: 0,
     achievements: 0,
+    users: 0,
+    bannedUsers: 0,
   });
   const [recentContacts, setRecentContacts] = useState<ContactSummary[]>([]);
   const [recentBookings, setRecentBookings] = useState<BookingSummary[]>([]);
   const [recentBlogPosts, setRecentBlogPosts] = useState<BlogSummary[]>([]);
+  const [recentUsers, setRecentUsers] = useState<UserSummary[]>([]);
 
   async function fetchStats() {
     try {
@@ -136,6 +167,7 @@ export default function AdminDashboard() {
         blogResponse,
         questionsResponse,
         achievementsResponse,
+        usersResponse,
       ] = await Promise.all([
         fetch("/api/admin/cutoffs?limit=1", { cache: "no-store" }),
         fetch("/api/admin/contacts", { cache: "no-store" }),
@@ -143,6 +175,7 @@ export default function AdminDashboard() {
         fetch("/api/admin/blog", { cache: "no-store" }),
         fetch("/api/admin/questions", { cache: "no-store" }),
         fetch("/api/admin/achievements", { cache: "no-store" }),
+        fetch("/api/admin/users", { cache: "no-store" }),
       ]);
 
       const [
@@ -152,6 +185,7 @@ export default function AdminDashboard() {
         blogRaw,
         questionsRaw,
         achievementsRaw,
+        usersRaw,
       ] = await Promise.all([
         cutoffsResponse.json(),
         contactsResponse.json(),
@@ -159,6 +193,7 @@ export default function AdminDashboard() {
         blogResponse.json(),
         questionsResponse.json(),
         achievementsResponse.json(),
+        usersResponse.json(),
       ]);
 
       const contacts = Array.isArray(contactsRaw) ? (contactsRaw as ContactSummary[]) : [];
@@ -166,6 +201,7 @@ export default function AdminDashboard() {
       const blogPosts = Array.isArray(blogRaw) ? (blogRaw as BlogSummary[]) : [];
       const questions = Array.isArray(questionsRaw) ? questionsRaw : [];
       const achievements = Array.isArray(achievementsRaw) ? achievementsRaw : [];
+      const users = Array.isArray(usersRaw) ? (usersRaw as UserSummary[]) : [];
 
       setStats({
         cutoffs: cutoffsData.total || 0,
@@ -175,11 +211,14 @@ export default function AdminDashboard() {
         blogPosts: blogPosts.length,
         questions: questions.length,
         achievements: achievements.length,
+        users: users.length,
+        bannedUsers: users.filter((item) => item.status === "banned").length,
       });
 
       setRecentContacts(contacts.slice(0, 4));
       setRecentBookings(bookings.slice(0, 4));
       setRecentBlogPosts(blogPosts.slice(0, 4));
+      setRecentUsers(users.slice(0, 4));
     } catch (error) {
       console.error("Admin dashboard fetch error:", error);
     }
@@ -215,7 +254,7 @@ export default function AdminDashboard() {
         })}
       </div>
 
-      <div className="grid gap-6 xl:grid-cols-3">
+      <div className="grid gap-6 xl:grid-cols-4">
         <div className="glass-card p-5">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-sm font-semibold text-white">Recent Contacts</h2>
@@ -315,6 +354,46 @@ export default function AdminDashboard() {
                   <p className="mt-1 text-xs text-gray-500">{post.authorName}</p>
                   <p className="mt-2 text-[10px] text-gray-600">
                     {formatDate(post.updatedAt || post.createdAt)}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="glass-card p-5">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-white">Recent Users</h2>
+            <Link href="/admin/users" className="text-xs text-accent-cyan hover:underline">
+              View all
+            </Link>
+          </div>
+          {recentUsers.length === 0 ? (
+            <p className="py-8 text-center text-sm text-gray-600">No users yet</p>
+          ) : (
+            <div className="space-y-3">
+              {recentUsers.map((entry) => (
+                <div key={entry.uid} className="rounded-lg bg-white/[0.02] p-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="truncate text-sm font-medium text-white">
+                      {entry.name || "Student"}
+                    </p>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                        entry.status === "banned"
+                          ? "bg-red-400/10 text-red-400"
+                          : "bg-green-400/10 text-green-400"
+                      }`}
+                    >
+                      {entry.status || "active"}
+                    </span>
+                  </div>
+                  <p className="mt-1 truncate text-xs text-gray-500">
+                    {entry.email}
+                  </p>
+                  <p className="mt-2 text-[10px] text-gray-600">
+                    {entry.provider || "unknown"} |{" "}
+                    {formatDate(entry.lastLoginAt || entry.createdAt || undefined)}
                   </p>
                 </div>
               ))}

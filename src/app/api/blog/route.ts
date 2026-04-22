@@ -13,6 +13,7 @@ import {
   normalizeContentFormat,
   toPlainText,
 } from "@/lib/richText";
+import { verifyCommunityAccess } from "@/lib/communityAccess";
 
 function normalizeTags(tags: unknown): string[] {
   if (Array.isArray(tags)) {
@@ -53,6 +54,19 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const email = searchParams.get("email")?.toLowerCase() || "";
+    const uid = searchParams.get("uid")?.trim() || "";
+    let verifiedAuthorEmail = "";
+
+    if (email && uid) {
+      const access = await verifyCommunityAccess({
+        authorUid: uid,
+        authorEmail: email,
+      });
+
+      if (access.ok && access.user) {
+        verifiedAuthorEmail = access.user.email;
+      }
+    }
 
     const snapshot = await getDocs(collection(db, "blog_posts"));
     let posts = snapshot.docs.map((entry) => ({
@@ -61,8 +75,9 @@ export async function GET(req: NextRequest) {
     })) as Array<Record<string, unknown>>;
 
     posts = posts.filter((post) =>
-      email
-        ? post.status === "published" || String(post.authorEmail || "").toLowerCase() === email
+      verifiedAuthorEmail
+        ? post.status === "published" ||
+          String(post.authorEmail || "").toLowerCase() === verifiedAuthorEmail
         : post.status === "published",
     );
 
@@ -86,11 +101,21 @@ export async function POST(req: NextRequest) {
     const content = String(body.content || "").trim();
     const contentFormat = normalizeContentFormat(body.contentFormat);
     const coverImageUrl = String(body.coverImageUrl || "").trim();
-    const authorName = String(body.authorName || "").trim();
     const authorEmail = String(body.authorEmail || "").trim().toLowerCase();
+    const access = await verifyCommunityAccess({
+      authorUid: body.authorUid,
+      authorEmail,
+    });
 
-    if (!title || !content || !authorName || !authorEmail) {
-      return NextResponse.json({ error: "Title, content, author name and email are required." }, { status: 400 });
+    if (!access.ok || !access.user) {
+      return NextResponse.json(
+        { error: access.error || "Your account could not be verified." },
+        { status: 403 },
+      );
+    }
+
+    if (!title || !content) {
+      return NextResponse.json({ error: "Title and content are required." }, { status: 400 });
     }
 
     const plainText = toPlainText(content, contentFormat);
@@ -107,9 +132,9 @@ export async function POST(req: NextRequest) {
       contentFormat,
       coverImageUrl,
       tags: normalizeTags(body.tags),
-      authorName,
-      authorEmail,
-      authorUid: String(body.authorUid || ""),
+      authorName: access.user.name,
+      authorEmail: access.user.email,
+      authorUid: access.user.uid,
       status: "pending",
       featured: false,
       adminComment: "",
@@ -138,6 +163,18 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "Post id and author email are required." }, { status: 400 });
     }
 
+    const access = await verifyCommunityAccess({
+      authorUid: body.authorUid,
+      authorEmail,
+    });
+
+    if (!access.ok || !access.user) {
+      return NextResponse.json(
+        { error: access.error || "Your account could not be verified." },
+        { status: 403 },
+      );
+    }
+
     const postRef = doc(db, "blog_posts", id);
     const snapshot = await getDoc(postRef);
 
@@ -146,7 +183,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const existing = snapshot.data();
-    if (String(existing.authorEmail || "").toLowerCase() !== authorEmail) {
+    if (String(existing.authorEmail || "").toLowerCase() !== access.user.email) {
       return NextResponse.json({ error: "You can only update your own posts." }, { status: 403 });
     }
 
@@ -195,6 +232,18 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: "Post id and author email are required." }, { status: 400 });
     }
 
+    const access = await verifyCommunityAccess({
+      authorUid: body.authorUid,
+      authorEmail,
+    });
+
+    if (!access.ok || !access.user) {
+      return NextResponse.json(
+        { error: access.error || "Your account could not be verified." },
+        { status: 403 },
+      );
+    }
+
     const postRef = doc(db, "blog_posts", id);
     const snapshot = await getDoc(postRef);
 
@@ -202,7 +251,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: "Post not found." }, { status: 404 });
     }
 
-    if (String(snapshot.data().authorEmail || "").toLowerCase() !== authorEmail) {
+    if (String(snapshot.data().authorEmail || "").toLowerCase() !== access.user.email) {
       return NextResponse.json({ error: "You can only delete your own posts." }, { status: 403 });
     }
 

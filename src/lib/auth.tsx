@@ -1,41 +1,52 @@
 "use client";
 
 import {
+  GoogleAuthProvider,
   browserSessionPersistence,
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendEmailVerification,
   setPersistence,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
   updateProfile,
   type User as FirebaseUser,
 } from "firebase/auth";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import {
   createContext,
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
   type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
-import { db } from "@/lib/firebase";
-
-export interface UserData {
-  uid: string;
-  name: string;
-  email: string;
-  plan: string;
-  phone: string;
-  gatePaper: string;
-  createdAt: unknown;
-}
+import app, { db } from "@/lib/firebase";
+import {
+  buildUserProfilePayload,
+  getBannedUserMessage,
+  normalizeUserProfile,
+  normalizeUserProvider,
+  type UserAuthProvider,
+  type UserData,
+} from "@/lib/users";
 
 interface AuthActionResult {
   ok: boolean;
   error?: string;
+  message?: string;
+}
+
+interface SyncUserOptions {
+  name?: string;
+  phone?: string;
+  gatePaper?: string;
+  provider?: UserAuthProvider;
+  emailVerified?: boolean;
 }
 
 interface AuthContextType {
@@ -49,11 +60,15 @@ interface AuthContextType {
     phone?: string,
     gatePaper?: string,
   ) => Promise<AuthActionResult>;
+  continueWithGoogle: () => Promise<AuthActionResult>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
 }
 
-const auth = getAuth();
+const auth = getAuth(app);
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 function getFirestoreErrorCode(error: unknown): string {
@@ -62,20 +77,45 @@ function getFirestoreErrorCode(error: unknown): string {
     : "";
 }
 
-function isFirestorePermissionError(error: unknown): boolean {
+function isFirestorePermissionError(error: unknown) {
   return getFirestoreErrorCode(error) === "permission-denied";
 }
 
-function createFallbackUser(firebaseUser: FirebaseUser): UserData {
-  return {
+function getPrimaryProvider(firebaseUser: FirebaseUser): UserAuthProvider {
+  const providerId = firebaseUser.providerData[0]?.providerId || "unknown";
+  return normalizeUserProvider(providerId);
+}
+
+function createFallbackUser(
+  firebaseUser: FirebaseUser,
+  overrides?: SyncUserOptions,
+): UserData {
+  const provider = overrides?.provider || getPrimaryProvider(firebaseUser);
+
+  return normalizeUserProfile({
     uid: firebaseUser.uid,
     email: firebaseUser.email || "",
-    name: firebaseUser.displayName || "Student",
+    name:
+      overrides?.name ||
+      firebaseUser.displayName ||
+      firebaseUser.email?.split("@")[0] ||
+      "Student",
     plan: "free",
-    phone: "",
-    gatePaper: "",
+    phone: overrides?.phone || "",
+    gatePaper: overrides?.gatePaper || "",
+    provider,
+    emailVerified:
+      provider === "google"
+        ? true
+        : Boolean(overrides?.emailVerified ?? firebaseUser.emailVerified),
+    photoURL: firebaseUser.photoURL || "",
     createdAt: null,
-  };
+    updatedAt: null,
+    lastLoginAt: null,
+    status: "active",
+    bannedReason: "",
+    bannedAt: null,
+  });
 }
 
 function getAuthErrorMessage(error: unknown): string {
@@ -95,10 +135,47 @@ function getAuthErrorMessage(error: unknown): string {
       return "Invalid email or password.";
     case "auth/weak-password":
       return "Password should be at least 6 characters.";
+    case "auth/popup-closed-by-user":
+      return "Google sign-in was cancelled.";
+    case "auth/popup-blocked":
+      return "Please allow popups to continue with Google.";
+    case "auth/account-exists-with-different-credential":
+      return "This email is already registered with another sign-in method.";
     case "auth/network-request-failed":
       return "Network error. Please check your connection and try again.";
     default:
       return "Authentication failed. Please try again.";
+  }
+}
+
+function getEmailVerificationSettings() {
+  const origin =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : process.env.NEXT_PUBLIC_APP_URL || "";
+
+  if (!origin) {
+    return undefined;
+  }
+
+  return {
+    url: `${origin}/login?verify=verified`,
+  };
+}
+
+function getVerificationEmailErrorMessage(error: unknown) {
+  const code =
+    typeof error === "object" && error && "code" in error
+      ? String(error.code)
+      : "";
+
+  switch (code) {
+    case "auth/unauthorized-continue-uri":
+      return "Verification email could not be sent because this domain is not authorized in Firebase Authentication settings.";
+    case "auth/invalid-continue-uri":
+      return "Verification email could not be sent because the continue URL is invalid.";
+    default:
+      return "We created your account, but could not send the verification email. Try logging in once to resend it.";
   }
 }
 
@@ -107,41 +184,91 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const syncUser = useCallback(async (firebaseUser: FirebaseUser | null) => {
-    if (!firebaseUser) {
+  const handleBannedUser = useCallback(
+    async (profile: Pick<UserData, "bannedReason">) => {
       setUser(null);
-      return;
-    }
+      await signOut(auth);
+      router.push("/login");
+      return {
+        ok: false,
+        error: getBannedUserMessage(profile),
+      } satisfies AuthActionResult;
+    },
+    [router],
+  );
 
-    try {
-      const snapshot = await getDoc(doc(db, "users", firebaseUser.uid));
+  const syncUser = useCallback(
+    async (
+      firebaseUser: FirebaseUser | null,
+      options?: SyncUserOptions,
+    ): Promise<AuthActionResult> => {
+      if (!firebaseUser) {
+        setUser(null);
+        return { ok: true };
+      }
 
-      if (snapshot.exists()) {
-        const data = snapshot.data();
-        setUser({
+      const provider = options?.provider || getPrimaryProvider(firebaseUser);
+
+      try {
+        const userRef = doc(db, "users", firebaseUser.uid);
+        const snapshot = await getDoc(userRef);
+        const existing = snapshot.exists()
+          ? normalizeUserProfile({
+              uid: firebaseUser.uid,
+              ...snapshot.data(),
+            })
+          : null;
+
+        const nextPayload = buildUserProfilePayload({
           uid: firebaseUser.uid,
-          name: String(data.name || firebaseUser.displayName || "Student"),
-          email: String(data.email || firebaseUser.email || ""),
-          plan: String(data.plan || "free"),
-          phone: String(data.phone || ""),
-          gatePaper: String(data.gatePaper || ""),
-          createdAt: data.createdAt ?? null,
+          name:
+            options?.name ||
+            existing?.name ||
+            firebaseUser.displayName ||
+            firebaseUser.email?.split("@")[0] ||
+            "Student",
+          email: firebaseUser.email || existing?.email || "",
+          phone: options?.phone ?? existing?.phone,
+          gatePaper: options?.gatePaper ?? existing?.gatePaper,
+          plan: existing?.plan,
+          provider,
+          emailVerified:
+            provider === "google"
+              ? true
+              : Boolean(
+                  options?.emailVerified ??
+                    firebaseUser.emailVerified ??
+                    existing?.emailVerified,
+                ),
+          photoURL: firebaseUser.photoURL || existing?.photoURL || "",
+          existing,
         });
-        return;
-      }
 
-      setUser(createFallbackUser(firebaseUser));
-    } catch (error) {
-      if (isFirestorePermissionError(error)) {
-        console.warn(
-          "User profile document is not readable with current Firestore rules. Falling back to Firebase Auth profile.",
-        );
-      } else {
-        console.error("Refresh user error:", error);
+        await setDoc(userRef, nextPayload, { merge: true });
+
+        const profile = normalizeUserProfile(nextPayload);
+
+        if (profile.status === "banned") {
+          return handleBannedUser(profile);
+        }
+
+        setUser(profile);
+        return { ok: true };
+      } catch (error) {
+        if (isFirestorePermissionError(error)) {
+          console.warn(
+            "User profile document is not readable with current Firestore rules. Falling back to Firebase Auth profile.",
+          );
+        } else {
+          console.error("Refresh user error:", error);
+        }
+
+        setUser(createFallbackUser(firebaseUser, options));
+        return { ok: true };
       }
-      setUser(createFallbackUser(firebaseUser));
-    }
-  }, []);
+    },
+    [handleBannedUser],
+  );
 
   const refreshUser = useCallback(async () => {
     setLoading(true);
@@ -160,11 +287,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       try {
         const credential = await signInWithEmailAndPassword(
           auth,
-          email.trim(),
+          email.trim().toLowerCase(),
           password,
         );
-        await syncUser(credential.user);
-        return { ok: true };
+
+        if (
+          getPrimaryProvider(credential.user) === "password" &&
+          !credential.user.emailVerified
+        ) {
+          try {
+            await sendEmailVerification(
+              credential.user,
+              getEmailVerificationSettings(),
+            );
+          } catch (verificationError) {
+            console.warn(
+              "Unable to resend verification email during login:",
+              verificationError,
+            );
+          }
+
+          await signOut(auth);
+          setUser(null);
+          return {
+            ok: false,
+            error:
+              "Verify your email before logging in. We sent a fresh verification link to your inbox.",
+          };
+        }
+
+        return await syncUser(credential.user);
       } catch (error) {
         console.error("Login error:", error);
         return { ok: false, error: getAuthErrorMessage(error) };
@@ -174,6 +326,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
     [syncUser],
   );
+
+  const continueWithGoogle = useCallback(async (): Promise<AuthActionResult> => {
+    setLoading(true);
+
+    try {
+      const credential = await signInWithPopup(auth, googleProvider);
+
+      if (!credential.user.email) {
+        await signOut(auth);
+        return {
+          ok: false,
+          error: "Google sign-in did not return an email address.",
+        };
+      }
+
+      return await syncUser(credential.user, {
+        provider: "google",
+        emailVerified: true,
+      });
+    } catch (error) {
+      console.error("Google auth error:", error);
+      return { ok: false, error: getAuthErrorMessage(error) };
+    } finally {
+      setLoading(false);
+    }
+  }, [syncUser]);
 
   const signup = useCallback(
     async (
@@ -186,35 +364,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(true);
 
       try {
+        const normalizedEmail = email.trim().toLowerCase();
+
         const credential = await createUserWithEmailAndPassword(
           auth,
-          email.trim(),
+          normalizedEmail,
           password,
         );
 
         await updateProfile(credential.user, { displayName: name.trim() });
 
-        try {
-          await setDoc(doc(db, "users", credential.user.uid), {
-            name: name.trim(),
-            email: email.trim().toLowerCase(),
-            phone: phone?.trim() || "",
-            plan: "free",
-            gatePaper: gatePaper?.trim() || "",
-            createdAt: serverTimestamp(),
-          });
-        } catch (profileError) {
-          if (isFirestorePermissionError(profileError)) {
-            console.warn(
-              "Signup succeeded, but Firestore rules blocked creating the user profile document.",
-            );
-          } else {
-            throw profileError;
-          }
+        const result = await syncUser(credential.user, {
+          name,
+          phone,
+          gatePaper,
+          provider: "password",
+          emailVerified: false,
+        });
+
+        if (!result.ok) {
+          return result;
         }
 
-        await syncUser(credential.user);
-        return { ok: true };
+        try {
+          await sendEmailVerification(
+            credential.user,
+            getEmailVerificationSettings(),
+          );
+        } catch (verificationError) {
+          console.error("Verification email send error:", verificationError);
+          await signOut(auth);
+          setUser(null);
+          return {
+            ok: false,
+            error: getVerificationEmailErrorMessage(verificationError),
+          };
+        }
+
+        await signOut(auth);
+        setUser(null);
+        return {
+          ok: true,
+          message:
+            "We sent a verification email to your inbox. Verify it, then log in.",
+        };
       } catch (error) {
         console.error("Signup error:", error);
         return { ok: false, error: getAuthErrorMessage(error) };
@@ -272,11 +465,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [syncUser]);
 
-  return (
-    <AuthContext.Provider value={{ user, loading, login, signup, logout, refreshUser }}>
-      {children}
-    </AuthContext.Provider>
+  useEffect(() => {
+    const handleWindowFocus = () => {
+      if (auth.currentUser) {
+        void refreshUser();
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && auth.currentUser) {
+        void refreshUser();
+      }
+    };
+
+    window.addEventListener("focus", handleWindowFocus);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener("focus", handleWindowFocus);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [refreshUser]);
+
+  const value = useMemo(
+    () => ({
+      user,
+      loading,
+      login,
+      signup,
+      continueWithGoogle,
+      logout,
+      refreshUser,
+    }),
+    [continueWithGoogle, loading, login, logout, refreshUser, signup, user],
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

@@ -17,6 +17,7 @@ import {
   BookOpen,
   HelpCircle,
   Trophy,
+  Users,
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -27,6 +28,7 @@ const navItems = [
   { label: "Blog", href: "/admin/blog", icon: BookOpen },
   { label: "Questions", href: "/admin/questions", icon: HelpCircle },
   { label: "Achievements", href: "/admin/achievements", icon: Trophy },
+  { label: "Users", href: "/admin/users", icon: Users },
   { label: "Doc Verification", href: "/admin/documents", icon: FileText },
   { label: "Contacts", href: "/admin/contacts", icon: Mail },
   { label: "Bookings", href: "/admin/bookings", icon: CalendarDays },
